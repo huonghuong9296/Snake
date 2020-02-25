@@ -1,0 +1,13 @@
+body {
+    background-color: black;
+}
+canvas {
+    border: 2px solid white;
+}
+button {
+    border-radius: 5px;
+    color:red;
+    background-color: yellow;
+    width: 80px;
+    height: 30px;
+}
