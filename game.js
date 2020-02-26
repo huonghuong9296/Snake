@@ -1,4 +1,4 @@
-class game{
+class Game{
     constructor(){
         // this.canvas = document.createElement('canvas');
         this.canvas = document.querySelector(".canvas");
@@ -8,14 +8,14 @@ class game{
         // document.body.appendChild(this.canvas);
         // this.context.clearRect(0, 0, 400,400); 
         this.modeGame = 1;   
-        this.snake = new snake(this);
-        this.food = new food(this);  
+        this.snake = new Snake(this);
+        this.food = new Food(this);  
         this.loop();
     }
 
     newGame(){
-        this.snake = new snake(this);
-        this.food = new food(this);  
+        this.snake = new Snake(this);
+        this.food = new Food(this);  
     }
 
     loop(){
@@ -35,9 +35,9 @@ class game{
         this.food.draw();
     }
 }
-class food{
-	constructor(game) {
-		this.game = game;
+class Food{
+	constructor(Game) {
+		this.game = Game;
 		this.x = 0;
 		this.y = 0;
 		this.grid = 20;
@@ -54,9 +54,9 @@ class food{
 		this.game.context.fillRect(this.x, this.y, this.grid, this.grid);
 	}
 }
-class snake{
-	constructor(game) {
-		this.game = game;
+class Snake{
+	constructor(Game) {
+		this.game = Game;
 		this.x = 0;
 		this.y = 0;
 		this.grid = 20;
@@ -64,7 +64,7 @@ class snake{
 		this.dy = 0;
 		this.cell = [];
 		this.maxCells = 1;
-        this.modeGame = game.modeGame;
+        this.modeGame = Game.modeGame;
         // console.log(this.modeGame);
 	}
 
@@ -166,7 +166,7 @@ class snake{
     }
 }
 
-let g = new game();
+let g = new Game();
 // console.log(g.modeGame);
 
 document.querySelector(".mode1").addEventListener("click", () => {
