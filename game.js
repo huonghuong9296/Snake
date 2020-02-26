@@ -6,13 +6,18 @@ class game{
         this.canvas.height = 400;
         this.canvas.width = 400;
         // document.body.appendChild(this.canvas);
-        // this.context.clearRect(0, 0, 400,400);    
+        // this.context.clearRect(0, 0, 400,400); 
+        this.modeGame = 1;   
         this.snake = new snake(this);
         this.food = new food(this);  
-        this.modeGame = 1;
-        
         this.loop();
     }
+
+    newGame(){
+        this.snake = new snake(this);
+        this.food = new food(this);  
+    }
+
     loop(){
         this.update();
         this.draw();
@@ -60,37 +65,35 @@ class snake{
 		this.cell = [];
 		this.maxCells = 1;
         this.modeGame = game.modeGame;
-        console.log(this.modeGame);
+        // console.log(this.modeGame);
 	}
 
 	update() {
 		if(!this.checkGameOver()){
 			this.x += this.dx;
             this.y += this.dy;
-            
-            if(this.x >= this.game.canvas.width){
-                this.x = 0;
-            }
-    
-            else if(this.x < 0){
-                this.x = this.game.canvas.width;
-            }
-    
-            if(this.y >= this.game.canvas.height){
-                this.y = 0;
-            }
-    
-            else if(this.y < 0){
-                this.y = this.game.canvas.height;
-            }
-    
-            this.cell.unshift({x: this.x, y: this.y});
-            if(this.cell.length > this.maxCells){
-                this.cell.pop();
-            }
-		}
+        }
+        if(this.x >= this.game.canvas.width){
+            this.x = 0;
+        }
 
-		
+        else if(this.x < 0){
+            this.x = this.game.canvas.width;
+        }
+
+        if(this.y >= this.game.canvas.height){
+            this.y = 0;
+        }
+
+        else if(this.y < 0){
+            this.y = this.game.canvas.height;
+        }
+
+        this.cell.unshift({x: this.x, y: this.y});
+        if(this.cell.length > this.maxCells){
+            this.cell.pop();
+        }
+
 		this.catchHandle();
 		
 	}
@@ -141,32 +144,37 @@ class snake{
 
     checkGameOver(){ 
         // console.log(this.modeGame)
+        if(this.modeGame == 2){
+            if( (this.x === 380 && this.dx > 0 )|| 
+                (this.y === 380 && this.dy > 0)||
+                (this.y === 0 && this.dy < 0)||
+                (this.x === 0 && this.dx < 0))
+            {
+                return true;
+            }
+            else{
+                return false;
+            }
+        }
         for(let i = 1; i < this.cell.length; i++){
             if(this.x == this.cell[i].x && this.y == this.cell[i].y){
                 return true;
             }
         }
-        if(this.modeGame == 2){
-            if(this.x == this.game.canvas.width || this.x == 0 || this.y == -this.game.canvas.height || this.y == 0){
-                return true;
-            }
-        }
+        
         return false;
     }
 }
 
 let g = new game();
-console.log(g.modeGame);
+// console.log(g.modeGame);
 
 document.querySelector(".mode1").addEventListener("click", () => {
-    // g = null;
-    let n = new game();
-    n.modeGame = 1;
-    console.log(this.modeGame);
+    g.modeGame = 1;
+    g.newGame();
 });
 document.querySelector(".mode2").addEventListener("click", () => {
-    let n = new game();
-    n.modeGame = 2;
-    console.log(this.modeGame);
+    g.modeGame = 2;
+    g.newGame();
 });
 
